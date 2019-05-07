@@ -1,24 +1,54 @@
 import React from 'react';
 
-function App() {
-  return (
-    <div className='App'>
-      <header className='App-header'>
-        <img src={logo} className='App-logo' alt='logo' />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className='App-link'
-          href='https://reactjs.org'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class Counter extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      count: 0,
+      totalClicks: 0
+    };
+  }
+
+  trackClicks = () => {
+    let totalClicks = this.state.totalClicks + 1;
+    this.setState({ totalClicks });
+  };
+
+  incrementCounter = e => {
+    e.preventDefault();
+    let count = this.state.count + 1;
+    this.setState({ count });
+    this.trackClicks();
+  };
+
+  decrementCounter = e => {
+    e.preventDefault();
+    let count = this.state.count - 1;
+    this.setState({ count });
+    this.trackClicks();
+  };
+
+  render() {
+    return (
+      <div>
+        <p>{this.state.totalClicks} - total clicks</p>
+        <h2>{this.state.count}</h2>
+        <button onClick={this.incrementCounter}>+</button>
+        <button onClick={this.decrementCounter}>-</button>
+      </div>
+    );
+  }
+}
+
+class App extends React.Component {
+  render() {
+    return (
+      <React.Fragment>
+        <Counter />
+        <Counter />
+      </React.Fragment>
+    );
+  }
 }
 
 export default App;
